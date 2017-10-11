@@ -63,7 +63,7 @@ var path = {
 
     src: {
         html:    [
-            'source/*.pug',
+            'source/*.html',
             '!source/*.md',
         ],
         js:      [
@@ -90,7 +90,7 @@ var path = {
     },
 
     watch: {
-        html:    'source/**/*.pug',
+        html:    'source/**/*.html',
         js:      'source/js/**/*.js',
         style:   'source/scss/**/*.scss',
         img:     'source/images/content/**/*.*',
@@ -113,7 +113,7 @@ var option = {
         open: false,
         host: 'localhost',
         port: 9000,
-        logPrefix: "calmos"
+        logPrefix: "dev"
     },
 
     plumber: {
@@ -124,7 +124,7 @@ var option = {
         outputStyle: 'expanded'
     },
 
-    pug: {
+    html: {
         pretty: '\t'
     },
 
@@ -133,7 +133,7 @@ var option = {
         'extra_liners': ['head', 'body', '/html', 'header', 'main', 'footer'],
         'indent_size': 4,
         'indent_char': ' ',
-        'indent_with_tabs': false,
+        'indent_with_tabs': true,
         'eol': '\n',
         'end-with-newline': true,
         'preserve_newlines': true,
@@ -237,7 +237,7 @@ gulp.task('bower', function() {
 gulp.task('build:html', function () {
     return gulp.src(path.src.html)
         .pipe($.plumber(option.plumber))
-        .pipe($.pug(option.pug))
+		.pipe($.rigger())
         .pipe($.posthtml(option.posthtml.plugins, option.posthtml.options))
         .pipe($.prettify(option.htmlPrettify))
         .pipe(gulp.dest(path.build.html));
